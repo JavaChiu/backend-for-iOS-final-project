@@ -36,13 +36,13 @@ public class UserController {
     }
     
     @GetMapping("/user/{id}")
-    public User getuserById(@PathVariable(value = "id") Long userId) {
+    public User getuserById(@PathVariable(value = "id") Integer userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
     }
     
     @PutMapping("/users/{id}")
-    public User updateuser(@PathVariable(value = "id") Long userId,
+    public User updateuser(@PathVariable(value = "id") Integer userId,
                                             @Valid @RequestBody User userDetails) {
 
         User user = userRepository.findById(userId)
@@ -56,7 +56,7 @@ public class UserController {
     }
     
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteuser(@PathVariable(value = "id") Long userId) {
+    public ResponseEntity<?> deleteuser(@PathVariable(value = "id") Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("user", "id", userId));
 
