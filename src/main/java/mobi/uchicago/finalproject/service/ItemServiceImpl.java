@@ -85,7 +85,7 @@ public class ItemServiceImpl implements ItemService {
                 Files.createDirectories(parentPath);
             }
             
-            Path path = Paths.get("/tmp/" + id + file.getOriginalFilename());
+            Path path = Paths.get(UPLOADED_FOLDER + id + file.getOriginalFilename());
             Files.write(path, bytes);
             
             item = itemRepository.findById(id)
