@@ -13,54 +13,53 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import mobi.uchicago.finalproject.exception.ResourceNotFoundException;
 import mobi.uchicago.finalproject.model.Item;
-import mobi.uchicago.finalproject.repository.ItemRepository;
+import mobi.uchicago.finalproject.service.ItemService;
 
 @RestController
 @RequestMapping("/api")
 public class ItemController {
     @Autowired
-    ItemRepository itemRepository;
-    
+    ItemService itemService;
+
     @GetMapping("/items")
     public List<Item> getAllitems() {
-        return itemRepository.findAll();
+        return itemService.getAllItems();
     }
-    
-    @PostMapping("/item")
-    public Item createitem(@Valid @RequestBody Item item) {
-        return itemRepository.save(item);
+
+    @PostMapping("/item/{userId}")
+    public Item createitem(@PathVariable(value = "userId") Integer userId, @Valid @RequestBody Item item) {
+        return itemService.createItem(item, userId);
     }
-    
+
     @GetMapping("/item/{id}")
-    public Item getitemById(@PathVariable(value = "id") Integer itemId) {
-        return itemRepository.findById(itemId)
-                .orElseThrow(() -> new ResourceNotFoundException("item", "id", itemId));
+    public Item getitemById(@PathVariable(value = "id") Integer id) {
+        return itemService.getItemById(id);
     }
-    
+
     @PutMapping("/items/{id}")
-    public Item updateitem(@PathVariable(value = "id") Integer itemId,
-                                            @Valid @RequestBody Item itemDetails) {
+    public Item updateitem(@PathVariable(value = "id") Integer id, @Valid @RequestBody Item itemDetails) {
 
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new ResourceNotFoundException("item", "id", itemId));
-
-        item.setDescription(itemDetails.getDescription());
-
-        Item updateditem = itemRepository.save(item);
-        return updateditem;
+        return itemService.updateItem(id, itemDetails);
     }
-    
+
     @DeleteMapping("/items/{id}")
-    public ResponseEntity<?> deleteitem(@PathVariable(value = "id") Integer itemId) {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new ResourceNotFoundException("item", "id", itemId));
+    public ResponseEntity<?> deleteitem(@PathVariable(value = "id") Integer id) {
+        itemService.deleteItem(id);
 
-        itemRepository.delete(item);
+        return ResponseEntity.ok().build();
+    }
 
+    @PostMapping("/item/{id}/itemImage")
+    public ResponseEntity<?> singleFileUpload(@RequestParam("file") MultipartFile file, @PathVariable(value = "id") Integer id) {
+
+        Item updatedItem = itemService.uploadItemImage(id, file);
+        itemService.updateItem(id, updatedItem);
+        
         return ResponseEntity.ok().build();
     }
 }

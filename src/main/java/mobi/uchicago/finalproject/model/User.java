@@ -2,7 +2,6 @@ package mobi.uchicago.finalproject.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -32,17 +31,17 @@ public class User implements Serializable {
 	@Column(name="user_name")
 	private String userName;
 
-	//bi-directional many-to-one association to Item
-	@OneToMany(mappedBy="user")
-	private List<Item> items;
-
-	//bi-directional many-to-one association to Message
-	@OneToMany(mappedBy="user1")
-	private List<Message> messages1;
-
-	//bi-directional many-to-one association to Message
-	@OneToMany(mappedBy="user2")
-	private List<Message> messages2;
+//	//bi-directional many-to-one association to Item
+//	@OneToMany(mappedBy="user")
+//	private List<Item> items;
+//
+//	//bi-directional many-to-one association to Message
+//	@OneToMany(mappedBy="user1")
+//	private List<Message> messages1;
+//
+//	//bi-directional many-to-one association to Message
+//	@OneToMany(mappedBy="user2")
+//	private List<Message> messages2;
 
 	public User() {
 	}
@@ -95,70 +94,70 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public List<Item> getItems() {
-		return this.items;
-	}
+//	public List<Item> getItems() {
+//		return this.items;
+//	}
+//
+//	public void setItems(List<Item> items) {
+//		this.items = items;
+//	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
+//	public Item addItem(Item item) {
+//		getItems().add(item);
+//		item.setUser(this);
+//
+//		return item;
+//	}
 
-	public Item addItem(Item item) {
-		getItems().add(item);
-		item.setUser(this);
+//	public Item removeItem(Item item) {
+//		getItems().remove(item);
+//		item.setUser(null);
+//
+//		return item;
+//	}
+//
+//	public List<Message> getMessages1() {
+//		return this.messages1;
+//	}
+//
+//	public void setMessages1(List<Message> messages1) {
+//		this.messages1 = messages1;
+//	}
 
-		return item;
-	}
-
-	public Item removeItem(Item item) {
-		getItems().remove(item);
-		item.setUser(null);
-
-		return item;
-	}
-
-	public List<Message> getMessages1() {
-		return this.messages1;
-	}
-
-	public void setMessages1(List<Message> messages1) {
-		this.messages1 = messages1;
-	}
-
-	public Message addMessages1(Message messages1) {
-		getMessages1().add(messages1);
-		messages1.setUser1(this);
-
-		return messages1;
-	}
-
-	public Message removeMessages1(Message messages1) {
-		getMessages1().remove(messages1);
-		messages1.setUser1(null);
-
-		return messages1;
-	}
-
-	public List<Message> getMessages2() {
-		return this.messages2;
-	}
-
-	public void setMessages2(List<Message> messages2) {
-		this.messages2 = messages2;
-	}
-
-	public Message addMessages2(Message messages2) {
-		getMessages2().add(messages2);
-		messages2.setUser2(this);
-
-		return messages2;
-	}
-
-	public Message removeMessages2(Message messages2) {
-		getMessages2().remove(messages2);
-		messages2.setUser2(null);
-
-		return messages2;
-	}
+//	public Message addMessages1(Message messages1) {
+//		getMessages1().add(messages1);
+//		messages1.setUser1(this);
+//
+//		return messages1;
+//	}
+//
+//	public Message removeMessages1(Message messages1) {
+//		getMessages1().remove(messages1);
+//		messages1.setUser1(null);
+//
+//		return messages1;
+//	}
+//
+//	public List<Message> getMessages2() {
+//		return this.messages2;
+//	}
+//
+//	public void setMessages2(List<Message> messages2) {
+//		this.messages2 = messages2;
+//	}
+//
+//	public Message addMessages2(Message messages2) {
+//		getMessages2().add(messages2);
+//		messages2.setUser2(this);
+//
+//		return messages2;
+//	}
+//
+//	public Message removeMessages2(Message messages2) {
+//		getMessages2().remove(messages2);
+//		messages2.setUser2(null);
+//
+//		return messages2;
+//	}
 
 }

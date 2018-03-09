@@ -3,6 +3,8 @@ package mobi.uchicago.finalproject.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * The persistent class for the item database table.
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="item")
 @NamedQuery(name="Item.findAll", query="SELECT i FROM Item i")
+@JsonIgnoreProperties(value = {"user"}, allowGetters = true)
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,6 +35,8 @@ public class Item implements Serializable {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	private User user;
+//	@Column(name="user_id", updatable=false, insertable=false)
+//	private Integer userId;
 
 	public Item() {
 	}
@@ -76,6 +81,14 @@ public class Item implements Serializable {
 		this.pickupAddress = pickupAddress;
 	}
 
+//    public Integer getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
+
 	public User getUser() {
 		return this.user;
 	}
@@ -83,5 +96,7 @@ public class Item implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
 
 }
