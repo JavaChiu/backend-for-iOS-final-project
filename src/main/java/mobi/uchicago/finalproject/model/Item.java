@@ -35,6 +35,7 @@ public class Item implements Serializable {
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	private User user;
+	
 //	@Column(name="user_id", updatable=false, insertable=false)
 //	private Integer userId;
 
